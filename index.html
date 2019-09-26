@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Totally Trivial!</title>
+   
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap File -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+
+/* spot for question to be texted
+
+/* button to be selected to be clicked on. Must be made of the same class
+
+/*Have to set up some boolean for being correct or not
+
+/*going to need a submit button too. 
+
+  
+            <div class="input-group">
+                <input type="radio-option">
+                    <span style="margin-left: 20px;">      I think I could write here.
+                Okay what about here?</span>
+                
+            </div>
+  
+
+
+</div>
+
+  <!-- <div class="btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active">
+      <input type="checkbox" checked autocomplete="off"> Checked <span>if I write more
+          </span>
+        </label> Lets see where this ends up -->
+  </div>
+  <li value=1><div class="radio-option">I think I should type here</div></li>
+  <li><div class="radio-option"></div></li>
+  <li><div class="radio-option"></div></li>
+  <li><div class="radio-option"></div></li>
+  <li><div class="radio-option"></div></li>
+  
+  <div value="1">
+    <input type="radio-option" name="gender">Male<br>
+  </div>
+  <input type="radio-option" name="gender">Female<br>
+  <input type="radio-option" name="gender">Other<br>  
+
+<div id="quiz"></div>
+<button id="submit">Get Results</button>
+<div id="results"></div>
+
+
+</div>
+
+
+<script>
+$(document).ready(function() {
+
+const quizContainer = document.getElementById('quiz');
+const resultsContainer = document.getElementById('results');
+const submitButton = document.getElementById('submit');
+
+function buildQuiz() {}
+
+function showResults(){
+
+
+}
+
+buildQuiz
+    $('.radio-option').click(function () {
+            $(this).not(this).removeClass('click');
+            $(this).toggleClass("click");
+            console.log(this);
+        });
+
+
+
+
+
+})
+
+</script>
+
+
+</body>
+</html>
