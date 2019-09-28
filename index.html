@@ -20,35 +20,32 @@
 <body>
 
         <div id="container">
-            <div id="start">
-                <h1>Dragonball Z Trivia!</h1> Start!
-            </div>
-            <div id="quiz" style ="display : none;">
-                <div id = "qImage"><img src=......></div>
-                <div id ="question"> <p>Question</p></div>
+            <div id="start"> DragonballZ Trivia! </div>
+            <div id="quiz"  style ="display: none;">  
+                <div id ="question"> <p>Question</p> </div>
+                <div id = "qImg" style="width: 300px;"style="height: 300px;"
+                > </div>
+
+                <div id="choices">
+                        <div class="choice" id="A" value="data-A"></div>
+                        <div class="choice" id="B" value="data-B" ></div>
+                        <div class="choice" id="C" value="data-C" ></div>
+                </div>
                 <div id="timer">
                     <div id ="counter"> 6 </div>
                     <div id ="btimeGauge"></div>
                     <div id="timeGauge"></div>
                 </div>
-                <div id="choices">
-                    <div class="choice" id="A" onclick="checkAnswer('A')">A</div>
-                    <div class="choice" id="B" onclick="checkAnswer('B')">B</div>
-                    <div class="choice" id="C" onclick="checkAnswer('C')">C</div>
+
+                <div id="progress"> 
+                    <div class="prog" id="qIndex"></div>
                 </div>
-                <div id="progress"> <div class="prog"></div>
-                </div>
-            <div id="scoreCOntainer" style ="display:none;">
-                <img src=.....dragon ball> <p>50%</p>
+            <div id="scoreContainer" style ="display:none;"><p></p>
+                <img src="assets/images/2.png"> <p>50%</p>
             </div>
         </div>
-        
-                <div id="subwrapper">
-                    <div id="quiz-area">
-                        <button id="start">Start</button>
-                    </div>
-                </div>
-            </div>
+
+            
         
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <script type="text/javascript" src="assets/javascript/app.js"></script>
@@ -58,96 +55,17 @@
 
 
 
-  <!-- <div class="btn-group-toggle" data-toggle="buttons">
-    <label class="btn btn-secondary active">
-      <input type="checkbox" checked autocomplete="off"> Checked <span>if I write more
-          </span>
-        </label> Lets see where this ends up -->
-  <!-- </div>
-  <li value=1><div class="radio-option">I think I should type here</div></li>
-  <li><div class="radio-option"></div></li>
-  <li><div class="radio-option"></div></li>
-  <li><div class="radio-option"></div></li>
-  <li><div class="radio-option"></div></li>
-  
-  <div value="1">
-    <input type="radio-option" name="gender">Male<br>
-  </div>
-  <input type="radio-option" name="gender">Female<br>
-  <input type="radio-option" name="gender">Other<br>  
-
-<div id="quiz"></div>
-<button id="submit">Get Results</button>
-<div id="results"></div>
 
 
-</div> -->
+
+
+
 
 
 <script>
 // $(document).ready(function() {
 
-// const quizContainer = document.getElementById('quiz');
-// const resultsContainer = document.getElementById('results');
-// const submitButton = document.getElementById('submit');
 
-// function buildQuiz() {
-// const output= [];
-// myQuestions.forEach(currentQuestion, questionNumber){
-//     const answers =[];
-//         for(i=0; i<4; i++){
-//             answers.push(
-//                 <label>
-//                     <input type="radio" name "question${questionNumber}"
-//                     $(letter):
-//                     ${currrentQuestion.answers[letter]}
-//             )
-//         }
-// }
-
-// }
-
-// function showResults(){
-
-
-// }
-
-// const myQuestions = [
-//   {
-//     question: "Who is the strongest?",
-//     answers: {
-//       a: "Superman",
-//       b: "The Terminator",
-//       c: "Waluigi, obviously"
-//     },
-//     correctAnswer: "c"
-//   },
-//   {
-//     question: "What is the best site ever created?",
-//     answers: {
-//       a: "SitePoint",
-//       b: "Simple Steps Code",
-//       c: "Trick question; they're both the best"
-//     },
-//     correctAnswer: "c"
-//   },
-//   {
-//     question: "Where is Waldo really?",
-//     answers: {
-//       a: "Antarctica",
-//       b: "Exploring the Pacific Ocean",
-//       c: "Sitting in a tree",
-//       d: "Minding his own business, so stop asking"
-//     },
-//     correctAnswer: "d"
-//   }
-// ];
-// buildQuiz
-//     $('.radio-option').click(function () {
-//             $(this).not(this).removeClass('click');
-//             $(this).toggleClass("click");
-//             console.log(this);
-//         });
 
 
 
