@@ -65,35 +65,49 @@ var questions = [{
 const lastQuestion= questions.length; 
 
 $(document).ready(function() {
-    $("#container").on("click", function () {
-        $(".choice").on("click", function () {
+
+    $("#start").on("click", function () {
+    start.style.display ="none";
+    questionRender();
+    quiz.style.display ="block";
+    progressRender();
+    
+    }); 
+
+    $(".choice").on("click", function () {
              userAnswer=$(this).attr("id");
              console.log("What is this with id? " + userAnswer);  
             startQuiz();
-    
-    
     });
-
-
-   // console.log("Start was clicked");
-    //startQuiz();
-    
-   
-    
-//start.addEventListener("click", startQuiz);
-
+            
 function startQuiz() {
     start.style.display ="none";
     questionRender();
-    quiz.style.display ="block"
+    quiz.style.display ="block";
     counterRender();
-    userAnswer=$(this).attr("id");
-    //console.log("What is this with id? " + userAnswer);  
     checkAnswer();
     TIMER=setInterval(counterRender,1000);
     progressRender();
 }
-   
+function checkAnswer(){
+    if( userAnswer == questions[runningQuestion].correct){
+        //console.log("User Answer is " +userAnswer);
+        score++;
+        answerIsCorrect();
+    }
+    else { 
+        answerIsWrong();
+        count=0;
+    }
+    if( runningQuestion < lastQuestion){
+        //runningQuestion++;
+        questionRender();
+    }
+    else{ 
+        clearInterval(TIMER);
+        scoreRender();
+    }
+};
 function questionRender() {
     q=questions[runningQuestion];
     $("#question").text(q.question);
@@ -102,47 +116,26 @@ function questionRender() {
     $("#B").html(q.choiceB);
     $("#C").html(q.choiceC);
 }   
-start.style.display ="none";
-questionRender();
-quiz.style.display ="block";
-progressRender();
+
+
 
 function progressRender(){
     for(qIndex=0; qIndex<lastQuestion; qIndex++){
-        progress.innerHTML += "<div class ='prog' id="+qIndex + "></div>";    
+        progress.innerHTML += "<div class ='prog' id="+ qIndex + "></div>";    
     }
-}
-
-function TIMER(){
-    setInterval(counterRender, 1000)
 }
 
 function counterRender(){
     if(count <= questionTime){
         counter.innerHTML=count;
-        timeGauge.style.width =gaugeUnit * count + "px"; 
+        timeGauge.style.width = gaugeUnit * count + "px"; 
         count++;   
     }
     else{
         count=0;
         answerIsWrong();
     }
-    if( runningQuestion <=  lastQuestion){
-        runningQuestion++;
-        questionRender();
-    }
-    else{ clearInterval(TIMER);
-        scoreRender();
-    }
-}
-function checkAnswer(){
-    if( userAnswer == questions[runningQuestion].correct){
-        console.log("User Answer is " +userAnswer);
-        score++;
-        answerIsCorrect();
-    }
-    else{ answerIsWrong();
-    if( runningQuestion < lastQuestion){
+    if(runningQuestion <lastQuestion){
         runningQuestion++;
         questionRender();
     }
@@ -150,23 +143,25 @@ function checkAnswer(){
         clearInterval(TIMER);
         scoreRender();
     }
+};
 
-    function answerIsCorrect() {
-        document.getElementById(runningQuestion).style.backgroundColor ="green";
-    }
+function answerIsCorrect() {
+    document.getElementById(runningQuestion).style.backgroundColor ="green";
+}
     
-    function answerIsWrong() {
-        document.getElementById(runningQuestion).style.backgroundColor="red";
-    }
-  
+function answerIsWrong() {
+    document.getElementById(runningQuestion).style.backgroundColor="red";
+}
+function TIMER(){
+    setInterval(counterRender, 1000)
+} 
 function scoreRender(){
-scoreContainer.style.display="block";
-scorePercent=Math.round(100* score/ questions.length);
-img= (scorePercent>= 80)?"assets/images/5.jpg":
+    scoreContainer.style.display="block";
+    scorePercent=Math.round(100* score/ questions.length);
+    img= (scorePercent>= 80)?"assets/images/5.jpg":
     (scorePercent>= 60)?"assets/images/4.jpg":
     (scorePercent>= 40)?"assets/images/3.png":
     (scorePercent>= 20)?"assets/images/2.png": "assets/images/1.png";
     scoreContainer.innerHTML ="<img src=" +img +"><p>" +scorePercent + "%</p>";
 };
 });
-}); 
