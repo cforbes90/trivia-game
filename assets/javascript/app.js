@@ -119,9 +119,9 @@ function TIMER(){
 
 function counterRender(){
     if(count <= questionTime){
-        count++;
         counter.innerHTML=count;
-        timeGauge.style.width =gaugeUnit * count + "px";    
+        timeGauge.style.width =gaugeUnit * count + "px"; 
+        count++;   
     }
     else{
         count=0;
