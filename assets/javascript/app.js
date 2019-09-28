@@ -68,44 +68,50 @@ $(document).ready(function() {
 
     $("#start").on("click", function () {
     start.style.display ="none";
-    questionRender();
     quiz.style.display ="block";
     progressRender();
+    questionRender();
+    startQuiz();
     
     }); 
 
     $(".choice").on("click", function () {
              userAnswer=$(this).attr("id");
              console.log("What is this with id? " + userAnswer);  
-            startQuiz();
+            //startQuiz();
+            checkAnswer();
+            progressRender();
+            questionRender();
     });
             
 function startQuiz() {
     start.style.display ="none";
-    questionRender();
+    // questionRender();
     quiz.style.display ="block";
     counterRender();
     checkAnswer();
-    TIMER=setInterval(counterRender,1000);
-    progressRender();
+    // TIMER=setInterval(counterRender,1000);
+    // progressRender();
 }
 function checkAnswer(){
-    if( userAnswer == questions[runningQuestion].correct){
-        //console.log("User Answer is " +userAnswer);
-        score++;
-        answerIsCorrect();
-    }
-    else { 
-        answerIsWrong();
-        count=0;
-    }
-    if( runningQuestion < lastQuestion){
-        //runningQuestion++;
-        questionRender();
-    }
-    else{ 
-        clearInterval(TIMER);
-        scoreRender();
+    for (i=0; i<=questions.length; i++){
+        if( userAnswer == questions[runningQuestion].correct){
+            //console.log("User Answer is " +userAnswer);
+            score++;
+            answerIsCorrect();
+            runningQuestion++;
+            questionRender();
+            clearInterval(TIMER);
+            scoreRender();
+        }
+         else { 
+            answerIsWrong();
+            count=0;
+            runningQuestion++;
+            questionRender();
+            clearInterval(TIMER);
+            scoreRender();
+        }
     }
 };
 function questionRender() {
@@ -124,7 +130,6 @@ function progressRender(){
         progress.innerHTML += "<div class ='prog' id="+ qIndex + "></div>";    
     }
 }
-
 function counterRender(){
     if(count <= questionTime){
         counter.innerHTML=count;
