@@ -69,24 +69,22 @@ $(document).ready(function() {
     quiz.style.display ="block";
     questionLegend();
     questionRender();
+
     }); 
 
     $(".choice").on("click", function () {
-             userAnswer=$(this).attr("id");
-             console.log("What is this with id? " + userAnswer);  
-            nextQuestion();
-            questionRender();
+            userAnswer=$(this).attr("id");
+            console.log("What is this with id? " + userAnswer);  
             checkAnswer();
-            //progressRender();
     });
             
 function startQuiz() {
    // start.style.display ="none";
     // questionRender();
    // quiz.style.display ="block";
-    counterRender();
-    checkAnswer();
-     TIMER=setInterval(counterRender,1000);
+    // counterRender();
+    // checkAnswer();
+    //  TIMER=setInterval(counterRender,1000);
     // progressRender();
 }
 
@@ -96,8 +94,8 @@ function nextQuestion() {
     questionRender();
     clearInterval(TIMER);
     count=0;
-    progressRender();
-    scoreRender();
+    // progressRender();
+    // scoreRender();
 
 
 }
@@ -116,6 +114,7 @@ function checkAnswer(){
         if( userAnswer == questions[runningQuestion].correct){
             console.log("User Answer is " +userAnswer);
             score++;
+            console.log("Score is "+score);
             nextQuestion();
         }
          else { 
@@ -154,6 +153,7 @@ function questionLegend(){
 
 
 function answerCheckColoration() {
+    console.log("This runs during answerCheck. Running Q is "+runningQuestion);
     if( userAnswer == questions[runningQuestion].correct) {
         document.getElementById(runningQuestion).style.backgroundColor ="green";
     } 
