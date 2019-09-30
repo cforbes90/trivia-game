@@ -1,6 +1,6 @@
 
 
-
+runningQuestion=0; 
 const questionTime=10;
 const gaugeWidth =150;
 var count =0;
@@ -20,7 +20,6 @@ const choiceC=document.getElementById("C");
 const progress = document.getElementById("progress");
 const scoreContainer = document.getElementById("scoreContainer");
 var userAnswer ="";
-runningQuestion=0; 
 
 var userAnswer="";
 var questions = [{
@@ -53,9 +52,8 @@ var questions = [{
     choiceB: "Broly",
     choiceC: "Krillin",
     correct: "C",
-}, {
-    
-},{ question: "5. Who is NOT a member of the Ginyu Force?",
+}, {   
+    question: "5. Who is NOT a member of the Ginyu Force?",
     imgSrc: "assets/images/ginyu-force.png",
     choiceA: "Broly",
     choiceB: "Zarbon",
@@ -69,51 +67,42 @@ $(document).ready(function() {
     $("#start").on("click", function () {
     start.style.display ="none";
     quiz.style.display ="block";
-    progressRender();
     questionRender();
-    startQuiz();
-    
+    // // // progressRender();
+   
+    // startQuiz();
     }); 
 
     $(".choice").on("click", function () {
              userAnswer=$(this).attr("id");
              console.log("What is this with id? " + userAnswer);  
             //startQuiz();
-            checkAnswer();
-            progressRender();
             questionRender();
+            checkAnswer();
+            answerCheckColoration();
+            progressRender();
     });
             
 function startQuiz() {
-    start.style.display ="none";
-    // questionRender();
-    quiz.style.display ="block";
+   // start.style.display ="none";
+    questionRender();
+   // quiz.style.display ="block";
     counterRender();
     checkAnswer();
-    // TIMER=setInterval(counterRender,1000);
+     TIMER=setInterval(counterRender,1000);
     // progressRender();
 }
-function checkAnswer(){
-    for (i=0; i<=questions.length; i++){
-        if( userAnswer == questions[runningQuestion].correct){
-            //console.log("User Answer is " +userAnswer);
-            score++;
-            answerIsCorrect();
-            runningQuestion++;
-            questionRender();
-            clearInterval(TIMER);
-            scoreRender();
-        }
-         else { 
-            answerIsWrong();
-            count=0;
-            runningQuestion++;
-            questionRender();
-            clearInterval(TIMER);
-            scoreRender();
-        }
-    }
-};
+
+function nextQuestion() {
+    runningQuestion++;
+    questionRender();
+    clearInterval(TIMER);
+    count=0;
+    progressRender();
+    scoreRender();
+
+
+}
 function questionRender() {
     q=questions[runningQuestion];
     $("#question").text(q.question);
@@ -121,27 +110,35 @@ function questionRender() {
     $("#A").html(q.choiceA);
     $("#B").html(q.choiceB);
     $("#C").html(q.choiceC);
-}   
+}  
 
 
-
-function progressRender(){
-    for(qIndex=0; qIndex<lastQuestion; qIndex++){
-        progress.innerHTML += "<div class ='prog' id="+ qIndex + "></div>";    
-    }
-}
+function checkAnswer(){
+        if( userAnswer == questions[runningQuestion].correct){
+            console.log("User Answer is " +userAnswer);
+            score++;
+            answerIsCorrect();
+            nextQuestion();
+        }
+         else { 
+            answerIsWrong();
+            nextQuestion();
+            
+        }
+    
+};
+ 
 function counterRender(){
-    if(count <= questionTime){
+    if(count < questionTime){
         counter.innerHTML=count;
         timeGauge.style.width = gaugeUnit * count + "px"; 
         count++;   
     }
     else{
-        count=0;
+        //count=0;
         answerIsWrong();
     }
-    if(runningQuestion <lastQuestion){
-        runningQuestion++;
+    if(runningQuestion <=lastQuestion){
         questionRender();
     }
     else{ 
@@ -150,13 +147,23 @@ function counterRender(){
     }
 };
 
-function answerIsCorrect() {
-    document.getElementById(runningQuestion).style.backgroundColor ="green";
+function progressRender(){
+    if(qIndex<=lastQuestion ){
+        progress.innerHTML += "<div class ='prog' id="+ qIndex + "></div>";  
+        qIndex++;  
+    }
 }
-    
-function answerIsWrong() {
-    document.getElementById(runningQuestion).style.backgroundColor="red";
+
+
+function answerCheckColoration() {
+    if( userAnswer == questions[runningQuestion].correct) {
+        document.getElementById(runningQuestion).style.backgroundColor ="green";
+    } 
+    else {
+        document.getElementById(runningQuestion).style.backgroundColor="red";
+    }
 }
+
 function TIMER(){
     setInterval(counterRender, 1000)
 } 
