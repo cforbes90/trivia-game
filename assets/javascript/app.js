@@ -60,32 +60,29 @@ var questions = [{
     choiceC: "Recoome",
     correct: "A",
 }]
-const lastQuestion= questions.length; 
+const lastQuestion= questions.length-1; 
 
 $(document).ready(function() {
 
     $("#start").on("click", function () {
     start.style.display ="none";
     quiz.style.display ="block";
+    questionLegend();
     questionRender();
-    // // // progressRender();
-   
-    // startQuiz();
     }); 
 
     $(".choice").on("click", function () {
              userAnswer=$(this).attr("id");
              console.log("What is this with id? " + userAnswer);  
-            //startQuiz();
+            nextQuestion();
             questionRender();
             checkAnswer();
-            answerCheckColoration();
-            progressRender();
+            //progressRender();
     });
             
 function startQuiz() {
    // start.style.display ="none";
-    questionRender();
+    // questionRender();
    // quiz.style.display ="block";
     counterRender();
     checkAnswer();
@@ -94,6 +91,7 @@ function startQuiz() {
 }
 
 function nextQuestion() {
+    answerCheckColoration();
     runningQuestion++;
     questionRender();
     clearInterval(TIMER);
@@ -105,6 +103,7 @@ function nextQuestion() {
 }
 function questionRender() {
     q=questions[runningQuestion];
+    console.log("This runs during question render. running question is " +runningQuestion);
     $("#question").text(q.question);
     $("#qImg").html("<img src=" +q.imgSrc + ">");
     $("#A").html(q.choiceA);
@@ -117,11 +116,10 @@ function checkAnswer(){
         if( userAnswer == questions[runningQuestion].correct){
             console.log("User Answer is " +userAnswer);
             score++;
-            answerIsCorrect();
             nextQuestion();
         }
          else { 
-            answerIsWrong();
+           
             nextQuestion();
             
         }
@@ -147,12 +145,12 @@ function counterRender(){
     }
 };
 
-function progressRender(){
-    if(qIndex<=lastQuestion ){
+function questionLegend(){
+    for (qIndex=0; qIndex<lastQuestion; qIndex++){
         progress.innerHTML += "<div class ='prog' id="+ qIndex + "></div>";  
-        qIndex++;  
+        // console.log("Running question is "+runningQuestion);
     }
-}
+};
 
 
 function answerCheckColoration() {
@@ -162,7 +160,7 @@ function answerCheckColoration() {
     else {
         document.getElementById(runningQuestion).style.backgroundColor="red";
     }
-}
+};
 
 function TIMER(){
     setInterval(counterRender, 1000)
