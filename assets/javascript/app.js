@@ -73,9 +73,9 @@ $(document).ready(function() {
 
     $(".choice").on("click", function () {
             userAnswer=$(this).attr("id");
-            userAnswerCount++;
             console.log("userAnswer count = " + userAnswerCount);
             endGame();
+            //userAnswerCount++;
             checkAnswer();
     });
             
@@ -89,6 +89,8 @@ function startQuiz() {
 }
 
 function nextQuestion() {
+    userAnswerCount ++;
+    endGame();
     if (!lockGame){
     answerCheckColoration();
     runningQuestion++; 
@@ -149,7 +151,9 @@ function TIMER(){
 function endGame() {
     if (userAnswerCount==5){
         lockGame=true;
-        // quiz.style.display ="none";
+         //quiz.style.display ="none";
+         scoreContainer.style.display="block";
+        clearInterval(TIMER);
         scoreRender();
     }
 }
@@ -179,7 +183,7 @@ function scoreRender(){
     (scorePercent>= 20)?"assets/images/2.png": "assets/images/1.png";
     scoreContainer.innerHTML ="<img src=" +img +"><p>" +scorePercent + "%</p>";
     
-    scoreContainer.appendContent=(scorePercent>= 80)?"You are the best!":
+    $("#scoreContainer").prepend(scorePercent>= 80)?"You are the best!":
     (scorePercent>= 60)?"You are a battered but determined warrior":
     (scorePercent>= 40)?"You can do better if you try!":
     (scorePercent>= 20)?"Train harder!": "You are Captain Ginyu";

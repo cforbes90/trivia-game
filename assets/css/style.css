@@ -103,6 +103,7 @@ body{
     margin-left : 25px;
 }
 #progress{
+    z-index: 99;
     width : 500px;
     position: absolute;
     bottom : 0px;
@@ -132,6 +133,8 @@ body{
 }
 #scoreContainer img{
     position: absolute;
+    height: 400px;
+    width: 400px;
     top:100px;
     left:325px;
 }
