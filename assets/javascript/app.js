@@ -20,8 +20,8 @@ const choiceC=document.getElementById("C");
 const progress = document.getElementById("progress");
 const scoreContainer = document.getElementById("scoreContainer");
 var userAnswer ="";
-
-var userAnswer="";
+var lockGame=false; 
+var userAnswerCount=0;
 var questions = [{
     question: "1. Where did Goku learn Instant Transmission?",
     imgSrc: "assets/images/instanttransmission.jpg",
@@ -60,7 +60,7 @@ var questions = [{
     choiceC: "Recoome",
     correct: "A",
 }]
-const lastQuestion= questions.length-1; 
+const lastQuestion= questions.length; 
 
 $(document).ready(function() {
 
@@ -69,12 +69,13 @@ $(document).ready(function() {
     quiz.style.display ="block";
     questionLegend();
     questionRender();
-
     }); 
 
     $(".choice").on("click", function () {
             userAnswer=$(this).attr("id");
-            console.log("What is this with id? " + userAnswer);  
+            userAnswerCount++;
+            console.log("userAnswer count = " + userAnswerCount);
+            endGame();
             checkAnswer();
     });
             
@@ -88,39 +89,38 @@ function startQuiz() {
 }
 
 function nextQuestion() {
+    if (!lockGame){
     answerCheckColoration();
-    runningQuestion++;
+    runningQuestion++; 
     questionRender();
+    //counterRender();
     clearInterval(TIMER);
     count=0;
     // scoreRender();
+    }
 
 
 }
 function questionRender() {
     q=questions[runningQuestion];
-    console.log("This runs during question render. running question is " +runningQuestion);
     $("#question").text(q.question);
     $("#qImg").html("<img src=" +q.imgSrc + ">");
     $("#A").html(q.choiceA);
     $("#B").html(q.choiceB);
     $("#C").html(q.choiceC);
+    TIMER ();
+    
 }  
 
 
 function checkAnswer(){
         if( userAnswer == questions[runningQuestion].correct){
-            console.log("User Answer is " +userAnswer);
             score++;
-            console.log("Score is "+score);
             nextQuestion();
         }
-         else { 
-           
-            nextQuestion();
-            
-        }
-    
+         else {         
+            nextQuestion();  
+         }  
 };
  
 function counterRender(){
@@ -130,7 +130,7 @@ function counterRender(){
         count++;   
     }
     else{
-        //count=0;
+        count=0;
         // answerIsWrong();
     }
     if(runningQuestion <=lastQuestion){
@@ -142,32 +142,34 @@ function counterRender(){
     }
 };
 
+function TIMER(){
+    setInterval(counterRender, 1000)
+} 
+
+function endGame() {
+    if (userAnswerCount==5){
+        lockGame=true;
+        // quiz.style.display ="none";
+        scoreRender();
+    }
+}
+
 function questionLegend(){
-    for (qIndex=0; qIndex<=lastQuestion; qIndex++){
+    for (qIndex=0; qIndex<lastQuestion; qIndex++){
         progress.innerHTML += "<div class ='prog' id="+ qIndex + "></div>";  
         // console.log("Running question is "+runningQuestion);
     }
     $("#qIndex").remove();
 };
 
-
 function answerCheckColoration() {
     if( userAnswer == questions[runningQuestion].correct) {
-        
         document.getElementById(runningQuestion).style.backgroundColor ="green";
     } 
     else {
         document.getElementById(runningQuestion).style.backgroundColor="red";
     }
 };
-
-function TIMER(){
-    setInterval(counterRender, 1000)
-} 
-
-
-
-
 function scoreRender(){
     scoreContainer.style.display="block";
     scorePercent=Math.round(100* score/ questions.length);
@@ -176,5 +178,11 @@ function scoreRender(){
     (scorePercent>= 40)?"assets/images/3.png":
     (scorePercent>= 20)?"assets/images/2.png": "assets/images/1.png";
     scoreContainer.innerHTML ="<img src=" +img +"><p>" +scorePercent + "%</p>";
+    
+    scoreContainer.appendContent=(scorePercent>= 80)?"You are the best!":
+    (scorePercent>= 60)?"You are a battered but determined warrior":
+    (scorePercent>= 40)?"You can do better if you try!":
+    (scorePercent>= 20)?"Train harder!": "You are Captain Ginyu";
+
 };
 });
