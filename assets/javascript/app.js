@@ -85,7 +85,6 @@ function startQuiz() {
     // counterRender();
     // checkAnswer();
     //  TIMER=setInterval(counterRender,1000);
-    // progressRender();
 }
 
 function nextQuestion() {
@@ -94,7 +93,6 @@ function nextQuestion() {
     questionRender();
     clearInterval(TIMER);
     count=0;
-    // progressRender();
     // scoreRender();
 
 
@@ -133,7 +131,7 @@ function counterRender(){
     }
     else{
         //count=0;
-        answerIsWrong();
+        // answerIsWrong();
     }
     if(runningQuestion <=lastQuestion){
         questionRender();
@@ -145,16 +143,17 @@ function counterRender(){
 };
 
 function questionLegend(){
-    for (qIndex=0; qIndex<lastQuestion; qIndex++){
+    for (qIndex=0; qIndex<=lastQuestion; qIndex++){
         progress.innerHTML += "<div class ='prog' id="+ qIndex + "></div>";  
         // console.log("Running question is "+runningQuestion);
     }
+    $("#qIndex").remove();
 };
 
 
 function answerCheckColoration() {
-    console.log("This runs during answerCheck. Running Q is "+runningQuestion);
     if( userAnswer == questions[runningQuestion].correct) {
+        
         document.getElementById(runningQuestion).style.backgroundColor ="green";
     } 
     else {
@@ -165,6 +164,10 @@ function answerCheckColoration() {
 function TIMER(){
     setInterval(counterRender, 1000)
 } 
+
+
+
+
 function scoreRender(){
     scoreContainer.style.display="block";
     scorePercent=Math.round(100* score/ questions.length);
